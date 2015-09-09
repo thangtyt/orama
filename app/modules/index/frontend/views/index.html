@@ -1,0 +1,42 @@
+{% extends 'default_layout.html' %}
+
+{% block content %}
+    <div id="top-tags">
+        <div id="tags-links">
+            <ul id="tags-header-navigation" class="tags">
+                <li class="tags-item">
+                    Random Tags:
+                </li>
+                {% for tagItem in tags %}
+                    <li class="tags-item">
+                        <a href="/tag/{{ tagItem.name }}"> {{ tagItem.name }} </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="section-header">
+        <h2>Random Albums</h2>
+    </div>
+    <table class="albums-index">
+        <tr>
+            {% for album in albums %}
+            <td valign="top">
+
+                <div class="album-name">
+                    <a href="/album/{{ album.id }}/{{ album.uri }}"><img src="{{ album.url }}" onerror="imgError(this);" /> </a>
+                </div>
+                <div class="album-name">
+                    <a href="/album/{{ album.id }}/{{ album.uri }}">{{ album.name }}</a>
+                </div>
+                <div class="artist-name">
+                    <a href="/artist/{{ album.artist_id }}/{{ album.uri }}">{{ album.artist }}</a>
+                </div>
+            </td>
+            {% if (loop.index % 6) == 0 and loop.index != loop.length %}
+        </tr><tr>
+            {% endif %}
+            {% if  loop.index == loop.length  %}</tr>{% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
